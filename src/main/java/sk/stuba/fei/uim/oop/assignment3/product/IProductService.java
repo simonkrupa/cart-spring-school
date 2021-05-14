@@ -9,4 +9,5 @@ public interface IProductService {
     Product getById(long productId);
     Product updateOfProduct(long productId, ProductRequest request);
     void deleteProduct(long productId);
+    ProductAmount getAmountOfProduct(long productId);
 }

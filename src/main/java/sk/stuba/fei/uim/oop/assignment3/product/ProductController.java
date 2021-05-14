@@ -38,4 +38,9 @@ public class ProductController {
         this.service.deleteProduct(productId);
     }
 
+    @GetMapping("/{id}/amount")
+    public ProductAmount getAmount(@PathVariable("id") long productId){
+        return this.service.getAmountOfProduct(productId);
+    }
+
 }
