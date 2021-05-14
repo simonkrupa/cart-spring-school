@@ -33,4 +33,9 @@ public class ProductController {
         return new ProductResponse(this.service.updateOfProduct(productId, request));
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteProduct(@PathVariable("id") long productId){
+        this.service.deleteProduct(productId);
+    }
+
 }
