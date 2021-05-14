@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService implements IProductService{
@@ -25,5 +26,10 @@ public class ProductService implements IProductService{
         newProduct.setName(request.getName());
         newProduct.setDescription(request.getDescription());
         return this.repository.save(newProduct);
+    }
+
+    @Override
+    public Optional<Product> getById(long productId) {
+        return this.repository.findById(productId);
     }
 }

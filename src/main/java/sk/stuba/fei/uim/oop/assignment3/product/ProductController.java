@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -22,5 +23,9 @@ public class ProductController {
         return new ProductResponse(this.service.create(request));
     }
 
+    @GetMapping("/{id}")
+    public Optional<Product> getProductById(@PathVariable("id") long productId){
+        return this.service.getById(productId);
+    }
 
 }
