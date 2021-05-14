@@ -24,8 +24,13 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Product> getProductById(@PathVariable("id") long productId){
-        return this.service.getById(productId);
+    public ProductResponse getProductById(@PathVariable("id") long productId){
+        return new ProductResponse(this.service.getById(productId));
+    }
+
+    @PutMapping("/{id}")
+    public ProductResponse updateProduct(@PathVariable("id") long productId, @RequestBody ProductRequest request) {
+        return new ProductResponse(this.service.updateOfProduct(productId, request));
     }
 
 }

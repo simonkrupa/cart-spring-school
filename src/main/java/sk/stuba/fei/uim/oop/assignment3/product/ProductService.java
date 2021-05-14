@@ -32,7 +32,18 @@ public class ProductService implements IProductService{
     }
 
     @Override
-    public Optional<Product> getById(long productId) {
+    public Product getById(long productId) {
+        return this.repository.findById(productId);
+    }
+
+    @Override
+    public Product updateOfProduct(long productId, ProductRequest request) {
+        if(request.getName() != null) {
+            this.repository.findById(productId).setName(request.getName());
+        }
+        if (request.getDescription() != null) {
+            this.repository.findById(productId).setDescription(request.getDescription());
+        }
         return this.repository.findById(productId);
     }
 }

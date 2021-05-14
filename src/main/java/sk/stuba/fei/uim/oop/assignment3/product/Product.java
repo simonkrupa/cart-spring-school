@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Optional;
 
 @Entity
 @Getter
@@ -22,4 +23,5 @@ public class Product {
     private int amount;
     private String unit;
     private int price;
+
 }
