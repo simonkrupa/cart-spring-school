@@ -19,4 +19,7 @@ public class Product {
 
     private String name;
     private String description;
+    private int amount;
+    private String unit;
+    private int price;
 }

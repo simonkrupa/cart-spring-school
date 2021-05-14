@@ -25,6 +25,9 @@ public class ProductService implements IProductService{
         Product newProduct = new Product();
         newProduct.setName(request.getName());
         newProduct.setDescription(request.getDescription());
+        newProduct.setAmount(request.getAmount());
+        newProduct.setPrice(request.getPrice());
+        newProduct.setUnit(request.getUnit());
         return this.repository.save(newProduct);
     }
 
