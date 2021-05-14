@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -41,6 +40,11 @@ public class ProductController {
     @GetMapping("/{id}/amount")
     public ProductAmount getAmount(@PathVariable("id") long productId){
         return this.service.getAmountOfProduct(productId);
+    }
+
+    @PostMapping("/{id}/amount")
+    public ProductResponse increaseAmount(@PathVariable("id") long productId, @RequestBody ProductRequest request){
+        return new ProductResponse(this.service.increaseAmountOfProduct(productId,request));
     }
 
 }

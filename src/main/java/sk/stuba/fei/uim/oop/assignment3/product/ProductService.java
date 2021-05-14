@@ -58,4 +58,10 @@ public class ProductService implements IProductService{
         productAmount.setAmount(this.repository.findById(productId).getAmount());
         return productAmount;
     }
+
+    @Override
+    public Product increaseAmountOfProduct(long productId, ProductRequest productRequest) {
+        this.repository.findById(productId).setAmount(this.repository.findById(productId).getAmount()+productRequest.getAmount());
+        return this.repository.findById(productId);
+    }
 }
