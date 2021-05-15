@@ -13,4 +13,11 @@ public class CartService implements ICartService {
     public CartService(CartRepository repository) {
         this.repository = repository;
     }
+
+    @Override
+    public Cart create(CartRequest request) {
+        Cart newCart = new Cart();
+        newCart.setPayed(request.isPayed());
+        return this.repository.save(newCart);
+    }
 }
