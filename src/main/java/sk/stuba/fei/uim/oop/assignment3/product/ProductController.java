@@ -1,6 +1,8 @@
 package sk.stuba.fei.uim.oop.assignment3.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +25,9 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ProductResponse getProductById(@PathVariable("id") long productId){
-        return new ProductResponse(this.service.getById(productId));
+    public ResponseEntity<ProductResponse> getProductById(@PathVariable("id") long productId){
+        return new ResponseEntity<>(new ProductResponse(this.service.getById(productId)), HttpStatus.OK);
+        //return new ProductResponse(this.service.getById(productId));
     }
 
     @PutMapping("/{id}")
