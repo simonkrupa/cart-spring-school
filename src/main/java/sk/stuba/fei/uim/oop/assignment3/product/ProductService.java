@@ -57,9 +57,13 @@ public class ProductService implements IProductService{
 
     @Override
     public ProductAmount getAmountOfProduct(long productId) {
-        ProductAmount productAmount = new ProductAmount();
-        productAmount.setAmount(this.repository.findById(productId).get().getAmount());
-        return productAmount;
+        if(this.repository.findById(productId).isPresent()) {
+            ProductAmount productAmount = new ProductAmount();
+            productAmount.setAmount(this.repository.findById(productId).get().getAmount());
+            return productAmount;
+        }else{
+            throw new NotFoundException();
+        }
     }
 
     @Override

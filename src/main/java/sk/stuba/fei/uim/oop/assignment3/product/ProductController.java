@@ -46,13 +46,14 @@ public class ProductController {
     }
 
     @GetMapping("/{id}/amount")
-    public ProductAmount getAmount(@PathVariable("id") long productId){
-        return this.service.getAmountOfProduct(productId);
+    public ResponseEntity<ProductAmount> getAmount(@PathVariable("id") long productId){
+        return new ResponseEntity<>(this.service.getAmountOfProduct(productId), HttpStatus.OK);
+
     }
 
     @PostMapping("/{id}/amount")
-    public ProductResponse increaseAmount(@PathVariable("id") long productId, @RequestBody ProductRequest request){
-        return new ProductResponse(this.service.increaseAmountOfProduct(productId,request));
+    public ResponseEntity<ProductResponse> increaseAmount(@PathVariable("id") long productId, @RequestBody ProductRequest request){
+        return new ResponseEntity<>(new ProductResponse(this.service.increaseAmountOfProduct(productId,request)),HttpStatus.OK);
     }
 
 }
