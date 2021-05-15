@@ -69,6 +69,6 @@ public class ProductService implements IProductService{
     @Override
     public Product increaseAmountOfProduct(long productId, ProductRequest productRequest) {
         this.repository.findById(productId).get().setAmount(this.repository.findById(productId).get().getAmount()+productRequest.getAmount());
-        return this.repository.findById(productId).get();
+        return this.repository.findById(productId).orElseThrow(NotFoundException::new);
     }
 }
