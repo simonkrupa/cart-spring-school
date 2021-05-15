@@ -2,6 +2,8 @@ package sk.stuba.fei.uim.oop.assignment3.cart;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sk.stuba.fei.uim.oop.assignment3.exception.NotFoundException;
+import sk.stuba.fei.uim.oop.assignment3.product.Product;
 
 @Service
 public class CartService implements ICartService {
@@ -19,5 +21,10 @@ public class CartService implements ICartService {
         Cart newCart = new Cart();
         newCart.setPayed(request.isPayed());
         return this.repository.save(newCart);
+    }
+
+    @Override
+    public Cart getById(long cartId) {
+        return this.repository.findById(cartId).orElseThrow(NotFoundException::new);
     }
 }

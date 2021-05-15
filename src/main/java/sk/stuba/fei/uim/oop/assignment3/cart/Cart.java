@@ -2,13 +2,13 @@ package sk.stuba.fei.uim.oop.assignment3.cart;
 
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+import sk.stuba.fei.uim.oop.assignment3.product.Product;
+import sk.stuba.fei.uim.oop.assignment3.product.ProductIdAmount;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Setter
@@ -19,6 +19,9 @@ public class Cart {
     private Long id;
 
     private boolean payed;
+
+    @OneToMany
+    private List<Product> shoppingCart = new ArrayList<>();
 
 
 }
