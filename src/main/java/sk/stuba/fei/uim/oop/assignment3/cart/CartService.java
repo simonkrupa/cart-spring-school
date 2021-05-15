@@ -27,4 +27,11 @@ public class CartService implements ICartService {
     public Cart getById(long cartId) {
         return this.repository.findById(cartId).orElseThrow(NotFoundException::new);
     }
+
+    @Override
+    public boolean deleteCart(long cartId) {
+        boolean isDeleted = this.repository.findById(cartId).isPresent();
+        if (isDeleted){this.repository.deleteById(cartId);}
+        return isDeleted;
+    }
 }
