@@ -20,8 +20,8 @@ public class ProductController {
     }
 
     @PostMapping()
-    public ProductResponse createProduct(@RequestBody ProductRequest request){
-        return new ProductResponse(this.service.create(request));
+    public ResponseEntity<ProductResponse> createProduct(@RequestBody ProductRequest request){
+        return new ResponseEntity<>(new ProductResponse(this.service.create(request)), HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -52,8 +52,8 @@ public class ProductController {
     }
 
     @PostMapping("/{id}/amount")
-    public ResponseEntity<ProductResponse> increaseAmount(@PathVariable("id") long productId, @RequestBody ProductRequest request){
-        return new ResponseEntity<>(new ProductResponse(this.service.increaseAmountOfProduct(productId,request)),HttpStatus.OK);
+    public ResponseEntity<ProductAmount> increaseAmount(@PathVariable("id") long productId, @RequestBody ProductRequest request){
+        return new ResponseEntity<>((this.service.increaseAmountOfProduct(productId,request)),HttpStatus.OK);
     }
 
 }
