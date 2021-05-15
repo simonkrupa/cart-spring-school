@@ -31,13 +31,18 @@ public class ProductController {
     }
 
     @PutMapping("/{id}")
-    public ProductResponse updateProduct(@PathVariable("id") long productId, @RequestBody ProductRequest request) {
-        return new ProductResponse(this.service.updateOfProduct(productId, request));
+    public ResponseEntity<ProductResponse> updateProduct(@PathVariable("id") long productId, @RequestBody ProductRequest request) {
+        return new ResponseEntity<>(new ProductResponse(this.service.updateOfProduct(productId, request)), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteProduct(@PathVariable("id") long productId){
-        this.service.deleteProduct(productId);
+    public ResponseEntity<Void> deleteProduct(@PathVariable("id") long productId){
+        if(this.service.deleteProduct(productId)) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
     }
 
     @GetMapping("/{id}/amount")

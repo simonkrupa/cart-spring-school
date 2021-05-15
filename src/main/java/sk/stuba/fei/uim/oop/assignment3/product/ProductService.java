@@ -45,12 +45,14 @@ public class ProductService implements IProductService{
         if (request.getDescription() != null) {
             this.repository.findById(productId).get().setDescription(request.getDescription());
         }
-        return this.repository.findById(productId).get();
+        return this.repository.findById(productId).orElseThrow(NotFoundException::new);
     }
 
     @Override
-    public void deleteProduct(long productId) {
-        this.repository.deleteById(productId);
+    public boolean deleteProduct(long productId) {
+        boolean isDeleted = this.repository.findById(productId).isPresent();
+        if (isDeleted){this.repository.deleteById(productId);}
+        return isDeleted;
     }
 
     @Override
