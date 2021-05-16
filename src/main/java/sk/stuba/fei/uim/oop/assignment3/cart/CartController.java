@@ -13,8 +13,8 @@ public class CartController {
 
 
     @PostMapping()
-    public ResponseEntity<CartResponse> createCart(@RequestBody CartRequest request){
-        return new ResponseEntity<>(new CartResponse(this.service.create(request)),HttpStatus.CREATED);
+    public ResponseEntity<CartResponse> createCart(){
+        return new ResponseEntity<>(new CartResponse(this.service.create()),HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -30,5 +30,10 @@ public class CartController {
         else{
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @PostMapping("/{id}/add")
+    public ResponseEntity<CartResponse> addProductToCart(@PathVariable("id") long cartId, @RequestBody CartIdAmountRequest request){
+        return null;//return new ResponseEntity<>(new CartResponse(this.service.))
     }
 }

@@ -17,9 +17,8 @@ public class CartService implements ICartService {
     }
 
     @Override
-    public Cart create(CartRequest request) {
+    public Cart create() {
         Cart newCart = new Cart();
-        newCart.setPayed(request.isPayed());
         return this.repository.save(newCart);
     }
 
@@ -33,5 +32,10 @@ public class CartService implements ICartService {
         boolean isDeleted = this.repository.findById(cartId).isPresent();
         if (isDeleted){this.repository.deleteById(cartId);}
         return isDeleted;
+    }
+
+    @Override
+    public Cart addProductToCart(long cartId, CartIdAmountRequest request) {
+        return null;//this.repository.findById(cartId).get().getShoppingCart().add(request);
     }
 }
