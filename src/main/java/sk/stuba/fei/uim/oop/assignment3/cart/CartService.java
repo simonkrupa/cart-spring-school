@@ -1,19 +1,14 @@
 package sk.stuba.fei.uim.oop.assignment3.cart;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import org.springframework.web.client.HttpClientErrorException;
 import sk.stuba.fei.uim.oop.assignment3.contents.Contents;
 import sk.stuba.fei.uim.oop.assignment3.contents.ContentsRepository;
 import sk.stuba.fei.uim.oop.assignment3.exception.BadRequestException;
 import sk.stuba.fei.uim.oop.assignment3.exception.NotFoundException;
 import sk.stuba.fei.uim.oop.assignment3.product.IProductService;
 import sk.stuba.fei.uim.oop.assignment3.product.Product;
-import sk.stuba.fei.uim.oop.assignment3.product.ProductRequest;
-import sk.stuba.fei.uim.oop.assignment3.product.ProductService;
 
 import java.util.Optional;
 
@@ -49,10 +44,13 @@ public class CartService implements ICartService {
         if (isDeleted){this.repository.deleteById(cartId);}
         return isDeleted;
     }
-    //len zaciatok
+
     @Override
     public Cart addProductToCart(long cartId, CartIdAmountRequest request) {
         Optional<Cart> cartOpt = this.repository.findById(cartId);
+        if (!cartOpt.isPresent()){
+            throw new NotFoundException();
+        }
         Cart cart = cartOpt.get();
         if(cart.isPayed()){
             throw new BadRequestException();
@@ -83,15 +81,25 @@ public class CartService implements ICartService {
             throw new BadRequestException();
         }
         return this.repository.save(cart);
+    }
 
-
-
-
-
-        //product.setAmount(product.getAmount() - request.getAmount());
-
-        //cart.getShoppingCart().add(product);
-
-        //return this.repository.save(cart);
+    @Override
+    public String payForCart(long cartId) {
+        Optional<Cart> cartOpt = this.repository.findById(cartId);
+        if (!cartOpt.isPresent()){
+            throw new NotFoundException();
+        }
+        Cart cart = cartOpt.get();
+        if (cart.isPayed()){
+            throw  new BadRequestException();
+        }
+        double priceCount = 0;
+        for(var a : cart.getShoppingCart()){
+            Product product = productService.getById(a.getProductId());
+            priceCount = priceCount + a.getAmount()*product.getPrice();
+        }
+        cart.setPayed(true);
+        this.repository.save(cart);
+        return ""+priceCount;
     }
 }

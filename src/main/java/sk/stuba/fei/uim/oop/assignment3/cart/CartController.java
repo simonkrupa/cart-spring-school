@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import sk.stuba.fei.uim.oop.assignment3.product.Product;
-import sk.stuba.fei.uim.oop.assignment3.product.ProductRequest;
 
 @RestController
 @RequestMapping("/cart")
@@ -37,5 +35,10 @@ public class CartController {
     @PostMapping("/{id}/add")
     public ResponseEntity<CartResponse> addProductToCart(@PathVariable("id") long cartId, @RequestBody() CartIdAmountRequest request){
         return new ResponseEntity<>(new CartResponse(this.service.addProductToCart(cartId, request)), HttpStatus.OK);
+    }
+
+    @GetMapping("/{id}/pay")
+    public ResponseEntity<String> payForCart(@PathVariable("id") long cartId){
+        return new ResponseEntity<>((this.service.payForCart(cartId)), HttpStatus.OK);
     }
 }
