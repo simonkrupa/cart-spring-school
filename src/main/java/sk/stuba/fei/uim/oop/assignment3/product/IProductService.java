@@ -10,4 +10,5 @@ public interface IProductService {
     boolean deleteProduct(long productId);
     ProductAmount getAmountOfProduct(long productId);
     ProductAmount increaseAmountOfProduct(long productId, ProductRequest productRequest);
+    Product save(Product product);
 }

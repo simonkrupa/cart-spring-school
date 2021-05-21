@@ -75,4 +75,9 @@ public class ProductService implements IProductService{
         return newProductAmount;
         //return this.repository.findById(productId).orElseThrow(NotFoundException::new);
     }
+
+    @Override
+    public Product save(Product product) {
+        return this.repository.save(product);
+    }
 }
