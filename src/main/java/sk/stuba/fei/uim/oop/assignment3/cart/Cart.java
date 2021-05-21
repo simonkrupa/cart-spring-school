@@ -3,6 +3,7 @@ package sk.stuba.fei.uim.oop.assignment3.cart;
 
 import lombok.Getter;
 import lombok.Setter;
+import sk.stuba.fei.uim.oop.assignment3.contents.Contents;
 import sk.stuba.fei.uim.oop.assignment3.product.Product;
 
 
@@ -21,7 +22,7 @@ public class Cart {
     private boolean payed;
 
     @OneToMany
-    private List<Product> shoppingCart = new ArrayList<>();
+    private List<Contents> shoppingCart = new ArrayList<>();
 
 
 }
